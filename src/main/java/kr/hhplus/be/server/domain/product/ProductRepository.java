@@ -1,5 +1,8 @@
 package kr.hhplus.be.server.domain.product;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -7,15 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository {
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    //List<Product> findTopSellingProducts(LocalDateTime dateTime);
 
-    Product save(Product product);
-
-    // 상품 조회
-    Optional<Product> findById(Long productId);
-
-    //모든 상품 조회
-    List<Product> findAll();
-
-    List<Product> findTopSellingProducts(LocalDateTime dateTime);
+    Page<Product> findAll(Pageable pageable);
 }
